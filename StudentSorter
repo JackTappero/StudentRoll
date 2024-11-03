@@ -1,0 +1,51 @@
+package studentRoll;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+
+public class StudentSorter {
+
+    public static void selectionSort(ArrayList<Student> students, Comparator<Student> comparator) {
+        int n = students.size();
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (comparator.compare(students.get(j), students.get(minIndex)) < 0) {
+                    minIndex = j;
+                }
+            }
+          
+            Student temp = students.get(minIndex);
+            students.set(minIndex, students.get(i));
+            students.set(i, temp);
+        }
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Student> students = new ArrayList<>();
+
+        students.add(new Student(5, "Jen", "123 Main St"));
+        students.add(new Student(3, "Steven", "202 Poker St"));
+        students.add(new Student(10, "Clark", "1776 Liberty Ln"));
+        students.add(new Student(1, "Barry", "1492 Columbus St"));
+        students.add(new Student(4, "Jason", "1210 Lone Creek St"));
+        students.add(new Student(9, "Grace", "307 Willow St"));
+        students.add(new Student(2, "Barb", "1887 Brutus St"));
+        students.add(new Student(8, "Taylor", "45 Kensington St"));
+        students.add(new Student(7, "Travis", "9000 Linlcon Blv"));
+        students.add(new Student(6, "Jack", "9876 Apple Ln"));
+
+    
+        selectionSort(students, new SortByName());
+        System.out.println("Students sorted by name:");
+        for (Student student : students) {
+            System.out.println(student);
+        }
+
+        selectionSort(students, new SortByRollNo());
+        System.out.println("\nStudents sorted by roll number:");
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+}
